@@ -9,6 +9,9 @@ import { KubernetesProvider } from "@cdktf/provider-kubernetes/lib/provider";
 import { Deployment } from "@cdktf/provider-kubernetes/lib/deployment";
 import { Service } from "@cdktf/provider-kubernetes/lib/service";
 
+const APP_NAME = "hello-uks";
+const BASE_NAME = "cdktf-example-ts-uks";
+
 class ClusterStack extends TerraformStack {
   public cluster: KubernetesCluster;
   constructor(scope: Construct, name: string) {
@@ -17,7 +20,7 @@ class ClusterStack extends TerraformStack {
     new UpcloudProvider(this, "upcloud");
 
     const net = new Network(this, "cluster_net", {
-      name: "cdktf-example-ts-uks-net",
+      name: `${BASE_NAME}-net`,
       zone: "de-fra1",
       ipNetwork: {
         address: "172.28.0.0/24",
@@ -27,7 +30,7 @@ class ClusterStack extends TerraformStack {
     });
 
     this.cluster = new KubernetesCluster(this, "cluster", {
-      name: "cdktf-example-ts-uks-cluster",
+      name: `${BASE_NAME}-cluster`,
       zone: "de-fra1",
       network: net.id,
       nodeGroup: [
@@ -62,13 +65,13 @@ class DeploymentStack extends TerraformStack {
 
     new Deployment(this, "hello_deployment", {
       metadata: {
-        labels: { app: "hello-uks" },
-        name: "hello-uks",
+        labels: { app: APP_NAME },
+        name: APP_NAME,
       },
       spec: {
         replicas: "8",
         template: {
-          metadata: { labels: { app: "hello-uks" } },
+          metadata: { labels: { app: APP_NAME } },
           spec: {
             container: [
               {
@@ -79,14 +82,14 @@ class DeploymentStack extends TerraformStack {
             ],
           },
         },
-        selector: { matchLabels: { app: "hello-uks" } },
+        selector: { matchLabels: { app: APP_NAME } },
       },
     });
 
     const service = new Service(this, "hello_service", {
       metadata: {
-        labels: { app: "hello-uks" },
-        name: "hello-uks",
+        labels: { app: APP_NAME },
+        name: APP_NAME,
       },
       spec: {
         type: "LoadBalancer",
@@ -97,7 +100,7 @@ class DeploymentStack extends TerraformStack {
             targetPort: "80",
           },
         ],
-        selector: { app: "hello-uks" },
+        selector: { app: APP_NAME },
       },
     });
 
