@@ -92,7 +92,7 @@ class DeploymentStack extends TerraformStack {
         type: "LoadBalancer",
         port: [
           {
-            port: 443,
+            port: 80,
             protocol: "TCP",
             targetPort: "80",
           },
