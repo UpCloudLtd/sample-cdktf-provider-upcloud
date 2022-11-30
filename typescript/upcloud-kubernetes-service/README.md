@@ -43,7 +43,7 @@ cdktf deploy typescript_uks_cluster typescript_uks_deployment
 This will deploy an [hello-container](https://github.com/UpCloudLtd/hello-container.git) and expose it to the internet through a load-balancer. Note that it might take a while for the load balancer to get into running state, its DNS records to propagate, and certificates to be verified. After everything is up and running, you should be able to see an hello page with hostname and IP of the pod the request was directed to by curling the page or opening it in your browser.
 
 ```sh
-curl https://${typescript_uks_deployment_cdktf_output}
+curl http://${typescript_uks_deployment_cdktf_output}
 ```
 
 If you want to cleanup the created resources, run `cdktf destroy` to destroy the stack.
