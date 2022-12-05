@@ -1,6 +1,6 @@
-# UpCloud Kubernetes Service (UKS)
+# TypeScript getting started
 
-A CDK for Terraform application in TypeScript to create a Kubernetes cluster and deployment with prebuilt UpCloud and Kubernetes CDK for Terraform providers.
+A CDK for Terraform application in TypeScript to create a server with prebuilt UpCloud CDK for Terraform provider.
 
 To get started with this example, you need to:
 
@@ -34,20 +34,16 @@ export UPCLOUD_PASSWORD="your-password"
 
 ## Deploy the example stack
 
-To deploy our stack defined in [main.ts](./main.ts), run `cdktf deploy`.
+To deploy our stack defined in [main.go](./main.go), run `cdktf deploy`.
 
 ```sh
-cdktf deploy typescript_uks_cluster typescript_uks_deployment
+cdktf deploy
 ```
 
-This will deploy an [hello-container](https://github.com/UpCloudLtd/hello-container.git) and expose it to the internet through a load-balancer. Note that it might take a while for the load balancer to get into running state, its DNS records to propagate, and certificates to be verified. After everything is up and running, you should be able to see an hello page with hostname and IP of the pod the request was directed to by curling the page or opening it in your browser.
-
-```sh
-curl http://${typescript_uks_deployment_cdktf_output}
-```
+This will deploy an server, to which you can login with `example` user and one-time password sent to your email. The server IP is provided as a Terraform output.
 
 If you want to cleanup the created resources, run `cdktf destroy` to destroy the stack.
 
 ```sh
-cdktf destroy typescript_uks_cluster typescript_uks_deployment
+cdktf destroy
 ```
