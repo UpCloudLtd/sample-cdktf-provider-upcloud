@@ -1,0 +1,19 @@
+{
+  "language": "python",
+  "app": "pipenv run python main.py",
+  "projectId": "8c7ae0ff-de85-4473-af88-a6be50bdb84c",
+  "sendCrashReports": "false",
+  "terraformProviders": [],
+  "terraformModules": [
+    {
+      "name": "basic_loadbalancer",
+      "source": "UpCloudLtd/basic-loadbalancer/upcloud",
+      "version": "~> 1.1"
+    }
+  ],
+  "codeMakerOutput": "imports",
+  "context": {
+    "excludeStackIdFromLogicalIds": "true",
+    "allowSepCharsInLogicalIds": "true"
+  }
+}
