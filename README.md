@@ -22,6 +22,10 @@ cdktf help
 
 ## Examples
 
+### Go
+
+- [Getting started (server)](./go/upcloud-server/README.md)
+
 ### TypeScript
 
 - [Cluster in UpCloud Kubernetes Service with a deployment exposed via a load-balancer](./typescript/upcloud-kubernetes-service/README.md)
