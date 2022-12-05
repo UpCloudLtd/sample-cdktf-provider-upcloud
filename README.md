@@ -32,4 +32,5 @@ cdktf help
 
 ### TypeScript
 
+- [Getting started (server)](./typescript/upcloud-server/README.md)
 - [Cluster in UpCloud Kubernetes Service with a deployment exposed via a load-balancer](./typescript/upcloud-kubernetes-service/README.md)
