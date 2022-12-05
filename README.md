@@ -29,6 +29,7 @@ cdktf help
 ### Python
 
 - [Getting started (server)](./python/upcloud-server/README.md)
+- [Loadbalancer and target servers with basic-loadbalancer module](./python/upcloud-loadbalancer-module/README.md)
 
 ### TypeScript
 
