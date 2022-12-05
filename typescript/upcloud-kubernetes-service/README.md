@@ -1,6 +1,6 @@
 # UpCloud Kubernetes Service (UKS)
 
-A CDK for Terraform application in Python to create a Kubernetes cluster and deployment with prebuilt UpCloud and Kubernetes CDK for Terraform providers.
+A CDK for Terraform application in TypeScript to create a Kubernetes cluster and deployment with prebuilt UpCloud and Kubernetes CDK for Terraform providers.
 
 To get started with this example, you need to:
 
