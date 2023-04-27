@@ -1,9 +1,10 @@
 import { Construct } from "constructs";
-import { App, Fn, TerraformStack, TerraformOutput } from "cdktf";
+import { App, TerraformStack, TerraformOutput } from "cdktf";
 
 import { UpcloudProvider } from "@cdktf/provider-upcloud/lib/provider";
 import { Network } from "@cdktf/provider-upcloud/lib/network";
 import { KubernetesCluster } from "@cdktf/provider-upcloud/lib/kubernetes-cluster";
+import { KubernetesNodeGroup } from "@cdktf/provider-upcloud/lib/kubernetes-node-group";
 import { DataUpcloudKubernetesCluster } from "@cdktf/provider-upcloud/lib/data-upcloud-kubernetes-cluster";
 import { KubernetesProvider } from "@cdktf/provider-kubernetes/lib/provider";
 import { Deployment } from "@cdktf/provider-kubernetes/lib/deployment";
@@ -33,13 +34,13 @@ class ClusterStack extends TerraformStack {
       name: `${BASE_NAME}-cluster`,
       zone: "de-fra1",
       network: net.id,
-      nodeGroup: [
-        {
-          name: "default",
-          count: 2,
-          plan: "2xCPU-4GB",
-        },
-      ],
+    });
+
+    new KubernetesNodeGroup(this, "node-group", {
+      cluster: this.cluster.id,
+      name: "default",
+      nodeCount: 2,
+      plan: "2xCPU-4GB",
     });
   }
 }
@@ -56,11 +57,12 @@ class DeploymentStack extends TerraformStack {
       id: config.clusterId,
     });
 
+    const { clientCertificate, clientKey, clusterCaCertificate } = cluster;
     new KubernetesProvider(this, "kubernetes", {
       host: cluster.host,
-      clientCertificate: Fn.base64decode(cluster.clientCertificate),
-      clientKey: Fn.base64decode(cluster.clientKey),
-      clusterCaCertificate: Fn.base64decode(cluster.clusterCaCertificate),
+      clientCertificate,
+      clientKey,
+      clusterCaCertificate,
     });
 
     new Deployment(this, "hello_deployment", {
